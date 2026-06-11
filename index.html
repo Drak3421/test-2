@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resource Library</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f4f4f7; padding: 20px; }
+        .container { max-width: 1000px; margin: auto; }
+        
+        #searchInput { width: 100%; padding: 15px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 8px; }
+        
+        .filter-buttons { margin-bottom: 20px; display: flex; gap: 10px; }
+        .btn { padding: 10px 20px; cursor: pointer; border: none; border-radius: 5px; background: #ddd; }
+        .btn:hover { background: #bbb; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .card { background: white; padding: 15px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-decoration: none; color: inherit; display: block; }
+        .card img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>My Resource Library</h1>
+        
+        <input type="text" id="searchInput" onkeyup="filterContent()" placeholder="Search...">
+
+        <div class="filter-buttons">
+            <button class="btn" onclick="filterCategory('all')">All</button>
+            <button class="btn" onclick="filterCategory('movies')">Movies</button>
+            <button class="btn" onclick="filterCategory('webseries')">Webseries</button>
+        </div>
+
+        <div class="grid" id="cardContainer">
+            <a href="#" class="card" data-category="movies">
+                <img src="placeholder.jpg" alt="Movie">
+                <h3>Movie Title</h3>
+            </a>
+            <a href="#" class="card" data-category="webseries">
+                <img src="placeholder.jpg" alt="Webseries">
+                <h3>Webseries Title</h3>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Search Filter
+        function filterContent() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('card');
+            for (let card of cards) {
+                let title = card.innerText.toLowerCase();
+                card.style.display = title.includes(input) ? "" : "none";
+            }
+        }
+
+        // Category Filter
+        function filterCategory(category) {
+            let cards = document.getElementsByClassName('card');
+            for (let card of cards) {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = "";
+                } else {
+                    card.style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
